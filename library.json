@@ -1,0 +1,26 @@
+{
+    "name": "IoPins",
+    "version": "0.0.1",
+    "description": "C++ abstraction layer for I/O pins of micro-controllers.",
+    "keywords": "gpio, abstraction layer",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/sporniket/IoPins"
+    },
+    "authors": [
+        {
+            "name": "David SPORN",
+            "url": "https://github.com/sporniket",
+            "maintainer": true
+        }
+    ],
+    "export": {
+        "exclude": [
+            ".gitignore",
+            "*.gz"
+        ]
+    },
+    "license": "GPL-3.0-or-later",
+    "frameworks": "*",
+    "platforms": "*"
+}
