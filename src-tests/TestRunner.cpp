@@ -1,12 +1,12 @@
 /* SPDX-License-Identifier: GPL-3.0-or-later */
-/****************************************
+/* ** ** ** ** ** ** ** ** ** ** ** ** **
 
 ---
 Copyright (C) 2021~2025 David SPORN
 ---
 This is part of **Animated values**.
 Created to help you go beyond a simple blinking.
-****************************************/
+* ** ** ** ** ** ** ** ** ** ** ** ** **/
 #include <criterion/criterion.h>
 #include <criterion/internal/assert.h>
 

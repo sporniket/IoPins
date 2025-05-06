@@ -16,5 +16,5 @@ _Work In Progress_
 
 ```cpp
 // Specialization of I/O pins using underlaying native API to read from/write to pins.
-// WIP...
+// WIP ...
 ```

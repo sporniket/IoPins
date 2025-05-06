@@ -1,12 +1,12 @@
 /* SPDX-License-Identifier: GPL-3.0-or-later */
-/****************************************
+/* ** ** ** ** ** ** ** ** ** ** ** ** **
 
 ---
 Copyright (C) 2025~2025 David SPORN
 ---
 This is part of **I/O pins**.
 A C++ abstraction layer for I/O pins of micro-controllers.
-****************************************/
+* ** ** ** ** ** ** ** ** ** ** ** ** **/
 #ifndef CMSPK__IOPINS__IO_DIRECTION__HPP
 #define CMSPK__IOPINS__IO_DIRECTION__HPP
 namespace cmspk::iopins {
