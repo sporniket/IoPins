@@ -24,7 +24,7 @@ target_link_libraries(${BINARY} PRIVATE criterion)
 # i.e. `cmake --build . -- verify`
 add_custom_target(
     verify COMMAND env CLICOLOR_FORCE=1 ${CMAKE_CTEST_COMMAND} --verbose
-    DEPENDS ${BINARY}
+    DEPENDS lint ${BINARY}
 )
 
 # ---

@@ -63,5 +63,5 @@ add_custom_target(refresh-compile-db
 add_custom_target(lint
     COMMAND clang-tidy-19
     ${FORMATTABLE_SOURCES}
-    DEPENDS refresh-compile-db
+    DEPENDS prettier refresh-compile-db
 )
