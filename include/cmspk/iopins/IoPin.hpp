@@ -10,7 +10,7 @@ A C++ abstraction layer for I/O pins of micro-controllers.
 #ifndef CMSPK__IOPINS__IO_PIN__HPP
 #define CMSPK__IOPINS__IO_PIN__HPP
 #include <cstdint>
-#include <exception>
+#include <expected>
 
 #include "IoDirection.hpp"
 #include "IoFailureReason.hpp"

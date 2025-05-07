@@ -3,6 +3,8 @@
 .vscode
 build
 local.*
+compile_commands.json
+.cache/
 
 ###
 # tarballs

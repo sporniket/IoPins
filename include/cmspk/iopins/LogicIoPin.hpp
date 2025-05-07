@@ -1,0 +1,83 @@
+/* SPDX-License-Identifier: GPL-3.0-or-later */
+/* ** ** ** ** ** ** ** ** ** ** ** ** **
+
+---
+Copyright (C) 2025~2025 David SPORN
+---
+This is part of **I/O pins**.
+A C++ abstraction layer for I/O pins of micro-controllers.
+* ** ** ** ** ** ** ** ** ** ** ** ** **/
+#ifndef CMSPK__IOPINS__LOGIC_IO_PIN__HPP
+#define CMSPK__IOPINS__LOGIC_IO_PIN__HPP
+#include <cstdint>
+#include <exception>
+
+#include "cmspk/iopins/IoPin.hpp"
+namespace cmspk::iopins {
+// ================[ CODE BEGINS ]================
+
+/**
+ * Setting to decide how to translate between a raw value and a logic value.
+ */
+enum LogicIoPinSetting {
+    /**
+     * The logic value is `true` when the raw value is low (`false`).
+     */
+    ACTIVE_LOW = 0,
+    /**
+     * The logic value is `true` when the raw value is high (`true`).
+     */
+    ACTIVE_HIGH
+};
+
+/**
+ * Abstraction of a pin that can be **asserted/active** or **negated/inactive**.
+ *
+ * The **raw** value is accessible through `read()`/`write()` ; the **logic** value
+ * is accessible through `readLogic()`/`writeLogic()` and the predicates
+ * `isAsserted()`/`isNegated()`.
+ *
+ * The logic setting can be changed.
+ */
+class LogicIoPin : public IoPin<bool> {
+  public:
+    ~LogicIoPin() {}
+    LogicIoPin(uint8_t index, IoDirection direction, LogicIoPinSetting logicSetting = LogicIoPinSetting::ACTIVE_HIGH) noexcept
+        : IoPin<bool>(index, direction), myLogicSetting(logicSetting) {}
+
+    LogicIoPinSetting getLogicSetting() const noexcept { return myLogicSetting; }
+    void setLogicSetting(LogicIoPinSetting logicSetting) noexcept { myLogicSetting = logicSetting; }
+
+    /**
+     * Read operation, the pin MUST have `READ` direction to be able to succeed.
+     *
+     * @returns the result of the read operation.
+     */
+    std::expected<bool, IoFailureReason> readLogic() noexcept {
+        std::expected<bool, IoFailureReason> rawRead = read();
+        if (rawRead.has_value()) {
+            return logicFromRaw(rawRead.value());
+        } else {
+            return std::move(rawRead);
+        }
+    }
+
+    /**
+     * Write operation, the pin MUST have `WRITE` direction to be able to succeed.
+     *
+     * @param value the value to write to the I/O pin.
+     *
+     * @returns the result of the write operation.
+     */
+    std::expected<void, IoFailureReason> writeLogic(const bool value) noexcept { return write(rawFromLogic(value)); }
+
+  private:
+    LogicIoPinSetting myLogicSetting;
+
+    bool logicFromRaw(bool value) { return (LogicIoPinSetting::ACTIVE_HIGH) ? value : !value; }
+    bool rawFromLogic(bool value) { return (LogicIoPinSetting::ACTIVE_HIGH) ? value : !value; }
+};
+
+// ================[ END OF CODE ]================
+};  // namespace cmspk::iopins
+#endif
