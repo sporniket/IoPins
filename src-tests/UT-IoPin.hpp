@@ -9,10 +9,10 @@ A C++ abstraction layer for I/O pins of micro-controllers.
 * ** ** ** ** ** ** ** ** ** ** ** ** **/
 
 // ================[BEGIN typical specialization]==================
-class BinaryIoPin final : public IoPin<bool> {
+class ConcreteBinaryIoPin final : public BinaryIoPin {
   public:
-    ~BinaryIoPin() {}
-    BinaryIoPin(uint8_t index, IoDirection direction, BoolValue* value) : IoPin<bool>(index, direction), value(value) {}
+    ~ConcreteBinaryIoPin() {}
+    ConcreteBinaryIoPin(uint8_t index, IoDirection direction, BoolValue* value) : BinaryIoPin(index, direction), value(value) {}
 
   private:
     BoolValue* value;
@@ -27,7 +27,7 @@ class BinaryIoPin final : public IoPin<bool> {
 
 Test(IoPin, readable_pin_is_enabled_readable_not_writable) {
     BoolValue mockValue{true};
-    BinaryIoPin p(42, IoDirection::READ, &mockValue);
+    ConcreteBinaryIoPin p(42, IoDirection::READ, &mockValue);
 
     // verify predicates
     cr_assert(p.isReadable());
@@ -59,7 +59,7 @@ Test(IoPin, readable_pin_is_enabled_readable_not_writable) {
 
 Test(IoPin, writable_pin_is_enabled_writable_not_readable_) {
     BoolValue mockValue{true};
-    BinaryIoPin p(43, IoDirection::WRITE, &mockValue);
+    ConcreteBinaryIoPin p(43, IoDirection::WRITE, &mockValue);
 
     // verify predicates
     cr_assert(p.isEnabled());
@@ -90,7 +90,7 @@ Test(IoPin, writable_pin_is_enabled_writable_not_readable_) {
 
 Test(IoPin, disabled_pin_is_disabled_not_writable_not_readable_) {
     BoolValue mockValue{true};
-    BinaryIoPin p(44, IoDirection::HIGH_Z, &mockValue);
+    ConcreteBinaryIoPin p(44, IoDirection::HIGH_Z, &mockValue);
 
     // verify predicates
     cr_assert(p.isNotReadable());

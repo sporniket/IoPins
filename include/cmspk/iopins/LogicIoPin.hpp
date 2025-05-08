@@ -39,7 +39,7 @@ enum LogicIoPinSetting {
  *
  * The logic setting can be changed.
  */
-class LogicIoPin : public IoPin<bool> {
+class LogicIoPin : public BinaryIoPin {
   public:
     ~LogicIoPin() {}
     LogicIoPin(uint8_t index, IoDirection direction, LogicIoPinSetting logicSetting = LogicIoPinSetting::ACTIVE_HIGH) noexcept

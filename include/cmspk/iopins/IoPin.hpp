@@ -138,6 +138,11 @@ class IoPin {
     uint8_t id;
     IoDirection direction;
 };
+
+using BinaryIoPin = IoPin<bool>;
+using AnalogIoPin8 = IoPin<uint8_t>;
+using AnalogIoPin16 = IoPin<uint16_t>;
+using AnalogIoPin32 = IoPin<uint32_t>;
 // ================[ END OF CODE ]================
 };  // namespace cmspk::iopins
 #endif

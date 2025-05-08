@@ -17,9 +17,9 @@ Created to help you go beyond a simple blinking.
 
 // FIXME write actual tests
 
+using cmspk::iopins::BinaryIoPin;
 using cmspk::iopins::IoDirection;
 using cmspk::iopins::IoFailureReason;
-using cmspk::iopins::IoPin;
 using cmspk::iopins::LogicIoPin;
 using cmspk::iopins::LogicIoPinSetting;
 
