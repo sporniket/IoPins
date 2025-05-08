@@ -15,7 +15,6 @@ A C++ abstraction layer for I/O pins of micro-controllers.
 #include "cmspk/iopins/IoPin.hpp"
 namespace cmspk::iopins {
 // ================[ CODE BEGINS ]================
-
 /**
  * Setting to decide how to translate between a raw value and a logic value.
  */
@@ -42,10 +41,29 @@ enum LogicIoPinSetting {
 class LogicIoPin : public BinaryIoPin {
   public:
     ~LogicIoPin() {}
-    LogicIoPin(uint8_t index, IoDirection direction, LogicIoPinSetting logicSetting = LogicIoPinSetting::ACTIVE_HIGH) noexcept
-        : IoPin<bool>(index, direction), myLogicSetting(logicSetting) {}
 
+    /**
+     * Fully define a logic I/O pin.
+     *
+     * @param id the native identification number of the pin.
+     * @param direction the direction of the pin.
+     * @param logicSetting **optionnal**, the initial logicSetting.
+     */
+    LogicIoPin(uint8_t id, IoDirection direction, LogicIoPinSetting logicSetting = LogicIoPinSetting::ACTIVE_HIGH) noexcept
+        : IoPin<bool>(id, direction), myLogicSetting(logicSetting) {}
+
+    /**
+     * Accessor of `logicSetting` property.
+     *
+     * @returns the property's value.
+     */
     LogicIoPinSetting getLogicSetting() const noexcept { return myLogicSetting; }
+
+    /**
+     * Mutator of `logicSetting` property.
+     *
+     * @param logicSetting the new value.
+     */
     void setLogicSetting(LogicIoPinSetting logicSetting) noexcept { myLogicSetting = logicSetting; }
 
     /**

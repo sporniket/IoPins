@@ -12,22 +12,21 @@ A C++ abstraction layer for I/O pins of micro-controllers.
 #include <cstdint>
 #include <expected>
 
-#include "IoDirection.hpp"
-#include "IoFailureReason.hpp"
-namespace cmspk::iopins {
-// ================[ CODE BEGINS ]================
-
-// ...your includes...
 #include "cmspk/iopins/IoDirection.hpp"
 #include "cmspk/iopins/IoFailureReason.hpp"
-
-// ...your code...
+namespace cmspk::iopins {
+// ================[ CODE BEGINS ]================
 /**
  * An abstraction of I/O pins, with a value represented by the given type.
  *
  * This base I/O pin has a fixed direction and cannot be reconfigured.
  *
  * @param S storage type for the value, typically a `bool` or an `uint8_t`
+ *
+ * > This is part of **I/O pins**.
+ * >
+ * > **Copyright** (C) 2025~2025 David SPORN.
+ * > **Licence** GPL 3.0 or later.
  */
 template <typename S>
 class IoPin {
@@ -36,55 +35,58 @@ class IoPin {
 
     /**
      * Fully define an I/O pin.
+     *
+     * @param id the native identification number of the pin.
+     * @param direction the direction of the pin.
      */
-    IoPin(uint8_t id, IoDirection direction) : id(id), direction(direction) {}
+    IoPin(uint8_t id, IoDirection direction) noexcept : id(id), direction(direction) {}
 
     /**
      * Predicate about the readability of the pin.
      *
      * @returns `true` when this is an input pin.
      */
-    bool isReadable() const { return IoDirection::READ == direction; }
+    bool isReadable() const noexcept { return IoDirection::READ == direction; }
 
     /**
      * Predicate about the readability of the pin.
      *
      * @returns `true` when this is not an input pin.
      */
-    bool isNotReadable() const { return IoDirection::READ != direction; }
+    bool isNotReadable() const noexcept { return IoDirection::READ != direction; }
 
     /**
      * Predicate about the writability of the pin.
      *
      * @returns `true` when this is an output pin.
      */
-    bool isWritable() const { return IoDirection::WRITE == direction; }
+    bool isWritable() const noexcept { return IoDirection::WRITE == direction; }
 
     /**
      * Predicate about the writability of the pin.
      *
      * @returns `true` when this is not an output pin.
      */
-    bool isNotWritable() const { return IoDirection::WRITE != direction; }
+    bool isNotWritable() const noexcept { return IoDirection::WRITE != direction; }
 
     /**
      * Predicate about the enabling of the pin.
      *
      * @returns `true` when this pin is enabled.
      */
-    bool isEnabled() const { return IoDirection::HIGH_Z != direction; }
+    bool isEnabled() const noexcept { return IoDirection::HIGH_Z != direction; }
 
     /**
      * Predicate about the enabling of the pin.
      *
      * @returns `true` when this pin is disabled.
      */
-    bool isDisabled() const { return IoDirection::HIGH_Z == direction; }
+    bool isDisabled() const noexcept { return IoDirection::HIGH_Z == direction; }
 
     /**
      * Get the pin id for the underlying microcontroller/board, usually a 1-based index value.
      */
-    uint8_t getPinId() const { return id; }
+    uint8_t getPinId() const noexcept { return id; }
 
     /**
      * Read operation, the pin MUST have `READ` direction to be able to succeed.
@@ -139,9 +141,44 @@ class IoPin {
     IoDirection direction;
 };
 
+/**
+ * Specialization of I/O pins using a single bit (`bool`) to represent its values.
+ *
+ * > This is part of **I/O pins**.
+ * >
+ * > **Copyright** (C) 2025~2025 David SPORN.
+ * > **Licence** GPL 3.0 or later.
+ */
 using BinaryIoPin = IoPin<bool>;
+
+/**
+ * Specialization of I/O pins using an 8 bits wide integer (`uint8_t`) to represent its values.
+ *
+ * > This is part of **I/O pins**.
+ * >
+ * > **Copyright** (C) 2025~2025 David SPORN.
+ * > **Licence** GPL 3.0 or later.
+ */
 using AnalogIoPin8 = IoPin<uint8_t>;
+
+/**
+ * Specialization of I/O pins using a 16 bits wide integer (`uint16_t`) to represent its values.
+ *
+ * > This is part of **I/O pins**.
+ * >
+ * > **Copyright** (C) 2025~2025 David SPORN.
+ * > **Licence** GPL 3.0 or later.
+ */
 using AnalogIoPin16 = IoPin<uint16_t>;
+
+/**
+ * Specialization of I/O pins using a 32 bits wide integer (`uint32_t`) to represent its values.
+ *
+ * > This is part of **I/O pins**.
+ * >
+ * > **Copyright** (C) 2025~2025 David SPORN.
+ * > **Licence** GPL 3.0 or later.
+ */
 using AnalogIoPin32 = IoPin<uint32_t>;
 // ================[ END OF CODE ]================
 };  // namespace cmspk::iopins

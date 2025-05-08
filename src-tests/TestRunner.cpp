@@ -2,10 +2,10 @@
 /* ** ** ** ** ** ** ** ** ** ** ** ** **
 
 ---
-Copyright (C) 2021~2025 David SPORN
+Copyright (C) 2025~2025 David SPORN
 ---
-This is part of **Animated values**.
-Created to help you go beyond a simple blinking.
+This is part of **I/O pins**.
+A C++ abstraction layer for I/O pins of micro-controllers..
 * ** ** ** ** ** ** ** ** ** ** ** ** **/
 #include <criterion/criterion.h>
 #include <criterion/internal/assert.h>

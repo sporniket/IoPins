@@ -65,3 +65,10 @@ add_custom_target(lint
     ${FORMATTABLE_SOURCES}
     DEPENDS prettier refresh-compile-db
 )
+
+# Generate documentation
+add_custom_target(doc-generate
+    COMMAND doxygen
+    ../Doxyfile-cmake
+    DEPENDS prettier
+)

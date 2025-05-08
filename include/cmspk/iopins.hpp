@@ -13,10 +13,19 @@ A C++ abstraction layer for I/O pins of micro-controllers.
 // ...your includes...
 
 // ...your code...
+
+/**
+ * `com.sporniket` namespace.
+ */
 namespace cmspk {};
 
 /**
  * An abstraction layer for I/O pins of micro-controllers.
+ *
+ * > This is part of **I/O pins**.
+ * >
+ * > **Copyright** (C) 2025~2025 David SPORN.
+ * > **Licence** GPL 3.0 or later.
  */
 namespace cmspk::iopins {};
 

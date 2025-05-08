@@ -1,4 +1,4 @@
-# AnimatedValues
+# I/O Pins
 C++ abstraction layer for I/O pins of micro-controllers.
 
 ## LICENSE

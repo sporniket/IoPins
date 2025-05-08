@@ -14,6 +14,11 @@ namespace cmspk::iopins {
 
 /**
  * Encoding of I/O pin direction.
+ *
+ * > This is part of **I/O pins**.
+ * >
+ * > **Copyright** (C) 2025~2025 David SPORN.
+ * > **Licence** GPL 3.0 or later.
  */
 enum IoDirection {
     /**
