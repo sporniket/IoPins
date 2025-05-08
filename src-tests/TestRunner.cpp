@@ -20,5 +20,13 @@ Created to help you go beyond a simple blinking.
 using cmspk::iopins::IoDirection;
 using cmspk::iopins::IoFailureReason;
 using cmspk::iopins::IoPin;
+using cmspk::iopins::LogicIoPin;
+using cmspk::iopins::LogicIoPinSetting;
+
+// common helper classes
+struct BoolValue {
+    bool value;
+};
 
 #include "UT-IoPin.hpp"
+#include "UT-LogicIoPin.hpp"

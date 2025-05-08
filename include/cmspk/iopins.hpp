@@ -23,5 +23,6 @@ namespace cmspk::iopins {};
 #include "cmspk/iopins/IoDirection.hpp"
 #include "cmspk/iopins/IoFailureReason.hpp"
 #include "cmspk/iopins/IoPin.hpp"
+#include "cmspk/iopins/LogicIoPin.hpp"
 // ================[ END OF CODE ]================
 #endif

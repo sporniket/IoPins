@@ -34,8 +34,8 @@ enum LogicIoPinSetting {
  * Abstraction of a pin that can be **asserted/active** or **negated/inactive**.
  *
  * The **raw** value is accessible through `read()`/`write()` ; the **logic** value
- * is accessible through `readLogic()`/`writeLogic()` and the predicates
- * `isAsserted()`/`isNegated()`.
+ * is accessible through `readLogic()`/`writeLogic()` and their meaningfully named
+ * `isAsserted()`/`isNegated()`/`assert()`/`negate()` wrappers.
  *
  * The logic setting can be changed.
  */
@@ -63,6 +63,26 @@ class LogicIoPin : public IoPin<bool> {
     }
 
     /**
+     * Wrapper calling `readLogic()` and asserting whether it got `true`, **SHOULD be called ONLY when the pin is readable**.
+     *
+     * @returns `true` only when the pin is readable and is at the logic active state defined as the logic setting.
+     */
+    bool isAsserted() noexcept {
+        std::expected<bool, IoFailureReason> result = readLogic();
+        return (result.has_value() && result.value());
+    }
+
+    /**
+     * Wrapper calling `readLogic()` and asserting whether it got `false`, **SHOULD be called ONLY when the pin is readable**.
+     *
+     * @returns `true` only when the pin is readable and is at the logic active state defined as the logic setting.
+     */
+    bool isNegated() noexcept {
+        std::expected<bool, IoFailureReason> result = readLogic();
+        return (result.has_value() && !(result.value()));
+    }
+
+    /**
      * Write operation, the pin MUST have `WRITE` direction to be able to succeed.
      *
      * @param value the value to write to the I/O pin.
@@ -71,11 +91,25 @@ class LogicIoPin : public IoPin<bool> {
      */
     std::expected<void, IoFailureReason> writeLogic(const bool value) noexcept { return write(rawFromLogic(value)); }
 
+    /**
+     * Wrapper calling `writeLogic(true)`.
+     *
+     * @returns the result of the write operation.
+     */
+    std::expected<void, IoFailureReason> assert() noexcept { return writeLogic(true); }
+
+    /**
+     * Wrapper calling `writeLogic(false)`.
+     *
+     * @returns the result of the write operation.
+     */
+    std::expected<void, IoFailureReason> negate() noexcept { return writeLogic(false); }
+
   private:
     LogicIoPinSetting myLogicSetting;
 
-    bool logicFromRaw(bool value) { return (LogicIoPinSetting::ACTIVE_HIGH) ? value : !value; }
-    bool rawFromLogic(bool value) { return (LogicIoPinSetting::ACTIVE_HIGH) ? value : !value; }
+    bool logicFromRaw(bool value) const noexcept { return (LogicIoPinSetting::ACTIVE_HIGH == myLogicSetting) ? value : !value; }
+    bool rawFromLogic(bool value) const noexcept { return (LogicIoPinSetting::ACTIVE_HIGH == myLogicSetting) ? value : !value; }
 };
 
 // ================[ END OF CODE ]================

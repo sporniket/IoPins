@@ -9,10 +9,10 @@ A C++ abstraction layer for I/O pins of micro-controllers.
 * ** ** ** ** ** ** ** ** ** ** ** ** **/
 
 // ================[BEGIN typical specialization]==================
-class BinaryIoPin final : public IoPin<bool> {
+class ConcreteLogicIoPin final : public LogicIoPin {
   public:
-    ~BinaryIoPin() {}
-    BinaryIoPin(uint8_t index, IoDirection direction, BoolValue* value) : IoPin<bool>(index, direction), value(value) {}
+    ~ConcreteLogicIoPin() {}
+    ConcreteLogicIoPin(uint8_t index, IoDirection direction, BoolValue* value) : LogicIoPin(index, direction), value(value) {}
 
   private:
     BoolValue* value;
@@ -25,9 +25,9 @@ class BinaryIoPin final : public IoPin<bool> {
 };
 // ================[END typical specialization]==================
 
-Test(IoPin, readable_pin_is_enabled_readable_not_writable) {
+Test(LogicIoPin, readable_LogicIoPin_is_an_IoPin) {
     BoolValue mockValue{true};
-    BinaryIoPin p(42, IoDirection::READ, &mockValue);
+    ConcreteLogicIoPin p(42, IoDirection::READ, &mockValue);
 
     // verify predicates
     cr_assert(p.isReadable());
@@ -57,9 +57,10 @@ Test(IoPin, readable_pin_is_enabled_readable_not_writable) {
     cr_assert_eq(readResult.value(), false);
 }
 
-Test(IoPin, writable_pin_is_enabled_writable_not_readable_) {
+
+Test(LogicIoPin, writable_LogicIoPin_is_an_IoPin) {
     BoolValue mockValue{true};
-    BinaryIoPin p(43, IoDirection::WRITE, &mockValue);
+    ConcreteLogicIoPin p(43, IoDirection::WRITE, &mockValue);
 
     // verify predicates
     cr_assert(p.isEnabled());
@@ -88,9 +89,9 @@ Test(IoPin, writable_pin_is_enabled_writable_not_readable_) {
     cr_assert_eq(mockValue.value, true);
 }
 
-Test(IoPin, disabled_pin_is_disabled_not_writable_not_readable_) {
+Test(LogicIoPin, disabled_LogicIoPin_is_an_IoPin) {
     BoolValue mockValue{true};
-    BinaryIoPin p(44, IoDirection::HIGH_Z, &mockValue);
+    ConcreteLogicIoPin p(44, IoDirection::HIGH_Z, &mockValue);
 
     // verify predicates
     cr_assert(p.isNotReadable());
@@ -112,4 +113,72 @@ Test(IoPin, disabled_pin_is_disabled_not_writable_not_readable_) {
     auto writeResult = p.write(false);
     cr_assert_not(writeResult.has_value());
     cr_assert_eq(writeResult.error(), IoFailureReason::FAILURE_PIN_IS_DISABLED);
+}
+
+Test(LogicIoPin, readLogic_depends_on_logic_setting) {
+    BoolValue mockValue{true};
+    ConcreteLogicIoPin p(42, IoDirection::READ, &mockValue);
+
+    // verify logic read
+    auto readResult = p.readLogic();
+    cr_assert(readResult.has_value());
+    cr_assert_eq(readResult.value(), true);
+    cr_assert(p.isAsserted());
+    cr_assert_not(p.isNegated());
+
+    // verify another logic read
+    mockValue.value = false;
+    readResult = p.readLogic();
+    cr_assert(readResult.has_value());
+    cr_assert_eq(readResult.value(), false);
+    cr_assert(p.isNegated());
+    cr_assert_not(p.isAsserted());
+
+    // change logic setting
+    p.setLogicSetting(LogicIoPinSetting::ACTIVE_LOW);
+    readResult = p.readLogic();
+    cr_assert(readResult.has_value());
+    cr_assert_eq(readResult.value(), true);
+    cr_assert(p.isAsserted());
+    cr_assert_not(p.isNegated());
+
+    // verify another logic read
+    mockValue.value = true;
+    readResult = p.readLogic();
+    cr_assert(readResult.has_value());
+    cr_assert_eq(readResult.value(), false);
+    cr_assert(p.isNegated());
+    cr_assert_not(p.isAsserted());
+}
+
+Test(LogicIoPin, writeLogic_depends_on_logic_setting) {
+    BoolValue mockValue{false};
+    ConcreteLogicIoPin p(43, IoDirection::WRITE, &mockValue);
+
+    // verify write
+    auto writeResult = p.writeLogic(true);
+    cr_assert(writeResult.has_value());
+    cr_assert_eq(mockValue.value, true);
+
+    // use wrappers
+    writeResult = p.negate();
+    cr_assert(writeResult.has_value());
+    cr_assert_eq(mockValue.value, false);
+    writeResult = p.assert();
+    cr_assert(writeResult.has_value());
+    cr_assert_eq(mockValue.value, true);
+
+    // change logic setting
+    p.setLogicSetting(LogicIoPinSetting::ACTIVE_LOW);
+    writeResult = p.writeLogic(true);
+    cr_assert(writeResult.has_value());
+    cr_assert_eq(mockValue.value, false);
+
+    // use wrappers
+    writeResult = p.negate();
+    cr_assert(writeResult.has_value());
+    cr_assert_eq(mockValue.value, true);
+    writeResult = p.assert();
+    cr_assert(writeResult.has_value());
+    cr_assert_eq(mockValue.value, false);
 }
