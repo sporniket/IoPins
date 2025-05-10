@@ -161,10 +161,10 @@ Test(LogicIoPin, writeLogic_depends_on_logic_setting) {
     cr_assert_eq(mockValue.value, true);
 
     // use wrappers
-    writeResult = p.negate();
+    writeResult = p.toNegated();
     cr_assert(writeResult.has_value());
     cr_assert_eq(mockValue.value, false);
-    writeResult = p.assert();
+    writeResult = p.toAsserted();
     cr_assert(writeResult.has_value());
     cr_assert_eq(mockValue.value, true);
 
@@ -175,10 +175,10 @@ Test(LogicIoPin, writeLogic_depends_on_logic_setting) {
     cr_assert_eq(mockValue.value, false);
 
     // use wrappers
-    writeResult = p.negate();
+    writeResult = p.toNegated();
     cr_assert(writeResult.has_value());
     cr_assert_eq(mockValue.value, true);
-    writeResult = p.assert();
+    writeResult = p.toAsserted();
     cr_assert(writeResult.has_value());
     cr_assert_eq(mockValue.value, false);
 }

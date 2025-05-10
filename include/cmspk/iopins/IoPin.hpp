@@ -31,7 +31,7 @@ namespace cmspk::iopins {
 template <typename S>
 class IoPin {
   public:
-    ~IoPin() {}
+    ~IoPin() noexcept {}
 
     /**
      * Fully define an I/O pin.

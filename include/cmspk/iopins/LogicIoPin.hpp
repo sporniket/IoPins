@@ -34,7 +34,7 @@ enum LogicIoPinSetting {
  *
  * The **raw** value is accessible through `read()`/`write()` ; the **logic** value
  * is accessible through `readLogic()`/`writeLogic()` and their meaningfully named
- * `isAsserted()`/`isNegated()`/`assert()`/`negate()` wrappers.
+ * `isAsserted()`/`isNegated()`/`toAsserted()`/`toNegated()` wrappers.
  *
  * The logic setting can be changed.
  */
@@ -114,14 +114,14 @@ class LogicIoPin : public BinaryIoPin {
      *
      * @returns the result of the write operation.
      */
-    std::expected<void, IoFailureReason> assert() noexcept { return writeLogic(true); }
+    std::expected<void, IoFailureReason> toAsserted() noexcept { return writeLogic(true); }
 
     /**
      * Wrapper calling `writeLogic(false)`.
      *
      * @returns the result of the write operation.
      */
-    std::expected<void, IoFailureReason> negate() noexcept { return writeLogic(false); }
+    std::expected<void, IoFailureReason> toNegated() noexcept { return writeLogic(false); }
 
   private:
     LogicIoPinSetting myLogicSetting;
