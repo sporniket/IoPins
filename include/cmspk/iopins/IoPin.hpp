@@ -99,7 +99,7 @@ class IoPin {
         } else if (isNotReadable()) {
             return std::unexpected(IoFailureReason::FAILURE_PIN_IS_NOT_READABLE);
         } else {
-            return std::move(doRead());
+            return doRead();
         }
     }
 
@@ -116,7 +116,7 @@ class IoPin {
         } else if (isNotWritable()) {
             return std::unexpected(IoFailureReason::FAILURE_PIN_IS_NOT_WRITABLE);
         } else {
-            return std::move(doWrite(value));
+            return doWrite(value);
         }
     }
 

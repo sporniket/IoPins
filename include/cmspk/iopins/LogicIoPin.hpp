@@ -40,7 +40,7 @@ enum LogicIoPinSetting {
  */
 class LogicIoPin : public BinaryIoPin {
   public:
-    ~LogicIoPin() {}
+    ~LogicIoPin() noexcept {}
 
     /**
      * Fully define a logic I/O pin.
@@ -76,7 +76,7 @@ class LogicIoPin : public BinaryIoPin {
         if (rawRead.has_value()) {
             return logicFromRaw(rawRead.value());
         } else {
-            return std::move(rawRead);
+            return rawRead;
         }
     }
 
