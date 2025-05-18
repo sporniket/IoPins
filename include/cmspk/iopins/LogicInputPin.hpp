@@ -7,15 +7,16 @@ Copyright (C) 2025~2025 David SPORN
 This is part of **I/O pins**.
 A C++ abstraction layer for I/O pins of micro-controllers.
 * ** ** ** ** ** ** ** ** ** ** ** ** **/
-#ifndef CMSPK__IOPINS__LOGIC_IO_PIN__HPP
-#define CMSPK__IOPINS__LOGIC_IO_PIN__HPP
+#ifndef CMSPK__IOPINS__LOGIC_INPUT_PIN__HPP
+#define CMSPK__IOPINS__LOGIC_INPUT_PIN__HPP
 #include <cstdint>
 #include <exception>
 
-#include "cmspk/iopins/IoPin.hpp"
+#include "cmspk/iopins/InputPin.hpp"
 #include "cmspk/iopins/LogicIoPinSetting.hpp"
 namespace cmspk::iopins {
 // ================[ CODE BEGINS ]================
+
 /**
  * Abstraction of a pin that can be **asserted/active** or **negated/inactive**.
  *
@@ -25,9 +26,9 @@ namespace cmspk::iopins {
  *
  * The logic setting can be changed.
  */
-class [[deprecated("Use LogicInputPin or LogicOutputPin instead")]] LogicIoPin : public BinaryIoPin {
+class LogicInputPin : public BinaryInputPin {
   public:
-    ~LogicIoPin() noexcept {}
+    ~LogicInputPin() noexcept {}
 
     /**
      * Fully define a logic I/O pin.
@@ -36,8 +37,8 @@ class [[deprecated("Use LogicInputPin or LogicOutputPin instead")]] LogicIoPin :
      * @param direction the direction of the pin.
      * @param logicSetting **optionnal**, the initial logicSetting.
      */
-    LogicIoPin(uint8_t id, IoDirection direction, LogicIoPinSetting logicSetting = LogicIoPinSetting::ACTIVE_HIGH) noexcept
-        : IoPin<bool>(id, direction), myLogicSetting(logicSetting) {}
+    LogicInputPin(uint8_t id, LogicIoPinSetting logicSetting = LogicIoPinSetting::ACTIVE_HIGH) noexcept
+        : BinaryInputPin(id), myLogicSetting(logicSetting) {}
 
     /**
      * Accessor of `logicSetting` property.
@@ -87,34 +88,10 @@ class [[deprecated("Use LogicInputPin or LogicOutputPin instead")]] LogicIoPin :
         return (result.has_value() && !(result.value()));
     }
 
-    /**
-     * Write operation, the pin MUST have `WRITE` direction to be able to succeed.
-     *
-     * @param value the value to write to the I/O pin.
-     *
-     * @returns the result of the write operation.
-     */
-    std::expected<void, IoFailureReason> writeLogic(const bool value) noexcept { return write(rawFromLogic(value)); }
-
-    /**
-     * Wrapper calling `writeLogic(true)`.
-     *
-     * @returns the result of the write operation.
-     */
-    std::expected<void, IoFailureReason> toAsserted() noexcept { return writeLogic(true); }
-
-    /**
-     * Wrapper calling `writeLogic(false)`.
-     *
-     * @returns the result of the write operation.
-     */
-    std::expected<void, IoFailureReason> toNegated() noexcept { return writeLogic(false); }
-
   private:
     LogicIoPinSetting myLogicSetting;
 
     bool logicFromRaw(bool value) const noexcept { return (LogicIoPinSetting::ACTIVE_HIGH == myLogicSetting) ? value : !value; }
-    bool rawFromLogic(bool value) const noexcept { return (LogicIoPinSetting::ACTIVE_HIGH == myLogicSetting) ? value : !value; }
 };
 
 // ================[ END OF CODE ]================

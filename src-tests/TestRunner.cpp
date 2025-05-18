@@ -22,8 +22,10 @@ using cmspk::iopins::BinaryIoPin;
 using cmspk::iopins::BinaryOutputPin;
 using cmspk::iopins::IoDirection;
 using cmspk::iopins::IoFailureReason;
+using cmspk::iopins::LogicInputPin;
 using cmspk::iopins::LogicIoPin;
 using cmspk::iopins::LogicIoPinSetting;
+using cmspk::iopins::LogicOutputPin;
 
 // common helper classes
 struct BoolValue {
@@ -32,5 +34,7 @@ struct BoolValue {
 
 #include "UT-InputPin.hpp"
 #include "UT-IoPin.hpp"
+#include "UT-LogicInputPin.hpp"
 #include "UT-LogicIoPin.hpp"
+#include "UT-LogicOutputPin.hpp"
 #include "UT-OutputPin.hpp"

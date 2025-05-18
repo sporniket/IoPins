@@ -33,7 +33,10 @@ namespace cmspk::iopins {};
 #include "cmspk/iopins/IoDirection.hpp"
 #include "cmspk/iopins/IoFailureReason.hpp"
 #include "cmspk/iopins/IoPin.hpp"
+#include "cmspk/iopins/LogicInputPin.hpp"
 #include "cmspk/iopins/LogicIoPin.hpp"
+#include "cmspk/iopins/LogicIoPinSetting.hpp"
+#include "cmspk/iopins/LogicOutputPin.hpp"
 #include "cmspk/iopins/OutputPin.hpp"
 // ================[ END OF CODE ]================
 #endif
