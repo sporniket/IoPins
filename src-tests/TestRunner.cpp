@@ -17,7 +17,9 @@ A C++ abstraction layer for I/O pins of micro-controllers..
 
 // FIXME write actual tests
 
+using cmspk::iopins::BinaryInputPin;
 using cmspk::iopins::BinaryIoPin;
+using cmspk::iopins::BinaryOutputPin;
 using cmspk::iopins::IoDirection;
 using cmspk::iopins::IoFailureReason;
 using cmspk::iopins::LogicIoPin;
@@ -28,5 +30,7 @@ struct BoolValue {
     bool value;
 };
 
+#include "UT-InputPin.hpp"
 #include "UT-IoPin.hpp"
 #include "UT-LogicIoPin.hpp"
+#include "UT-OutputPin.hpp"
