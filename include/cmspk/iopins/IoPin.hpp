@@ -29,7 +29,7 @@ namespace cmspk::iopins {
  * > **Licence** GPL 3.0 or later.
  */
 template <typename S>
-class IoPin {
+class [[deprecated("Use either InputPin or OutputPin instead")]] IoPin {
   public:
     ~IoPin() noexcept {}
 
