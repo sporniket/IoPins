@@ -18,11 +18,11 @@ namespace cmspk::iopins {
 // ================[ CODE BEGINS ]================
 
 /**
- * Abstraction of a pin that can be **asserted/active** or **negated/inactive**.
+ * Abstraction of an input pin that can be **asserted/active** or **negated/inactive**.
  *
- * The **raw** value is accessible through `read()`/`write()` ; the **logic** value
- * is accessible through `readLogic()`/`writeLogic()` and their meaningfully named
- * `isAsserted()`/`isNegated()`/`toAsserted()`/`toNegated()` wrappers.
+ * The **raw** value is accessible through `read()` ; the **logic** value
+ * is accessible through `readLogic()` and its wrappers meaningfully named
+ * `isAsserted()`/`isNegated()`.
  *
  * The logic setting can be changed.
  */
@@ -34,11 +34,9 @@ class LogicInputPin : public BinaryInputPin {
      * Fully define a logic I/O pin.
      *
      * @param id the native identification number of the pin.
-     * @param direction the direction of the pin.
      * @param logicSetting **optionnal**, the initial logicSetting.
      */
-    LogicInputPin(uint8_t id, LogicIoPinSetting logicSetting = LogicIoPinSetting::ACTIVE_HIGH) noexcept
-        : BinaryInputPin(id), myLogicSetting(logicSetting) {}
+    LogicInputPin(uint8_t id, LogicIoPinSetting logicSetting = LogicIoPinSetting::ACTIVE_HIGH) noexcept : BinaryInputPin(id), myLogicSetting(logicSetting) {}
 
     /**
      * Accessor of `logicSetting` property.

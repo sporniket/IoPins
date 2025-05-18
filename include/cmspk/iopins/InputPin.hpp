@@ -90,9 +90,7 @@ class InputPin {
      *
      * @returns the result of the read operation.
      */
-    std::expected<S, IoFailureReason> read() noexcept {
-        return doRead();
-    }
+    std::expected<S, IoFailureReason> read() noexcept { return doRead(); }
 
   private:
     /**

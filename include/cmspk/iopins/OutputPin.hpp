@@ -94,9 +94,7 @@ class OutputPin {
      *
      * @returns the result of the write operation.
      */
-    std::expected<void, IoFailureReason> write(const S value) noexcept {
-        return doWrite(value);
-    }
+    std::expected<void, IoFailureReason> write(const S value) noexcept { return doWrite(value); }
 
   private:
     /**

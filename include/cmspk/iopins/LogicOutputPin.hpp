@@ -12,16 +12,16 @@ A C++ abstraction layer for I/O pins of micro-controllers.
 #include <cstdint>
 #include <exception>
 
-#include "cmspk/iopins/OutputPin.hpp"
 #include "cmspk/iopins/LogicIoPinSetting.hpp"
+#include "cmspk/iopins/OutputPin.hpp"
 namespace cmspk::iopins {
 // ================[ CODE BEGINS ]================
 /**
- * Abstraction of a pin that can be **asserted/active** or **negated/inactive**.
+ * Abstraction of an output pin that can be **asserted/active** or **negated/inactive**.
  *
- * The **raw** value is accessible through `read()`/`write()` ; the **logic** value
- * is accessible through `readLogic()`/`writeLogic()` and their meaningfully named
- * `isAsserted()`/`isNegated()`/`toAsserted()`/`toNegated()` wrappers.
+ * The **raw** value is set through `write()` ; the **logic** value
+ * is accessible through `writeLogic()` and its wrappers meaningfully named
+ * `toAsserted()`/`toNegated()`.
  *
  * The logic setting can be changed.
  */
@@ -35,8 +35,7 @@ class LogicOutputPin : public BinaryOutputPin {
      * @param id the native identification number of the pin.
      * @param logicSetting **optionnal**, the initial logicSetting.
      */
-    LogicOutputPin(uint8_t id, LogicIoPinSetting logicSetting = LogicIoPinSetting::ACTIVE_HIGH) noexcept
-        : BinaryOutputPin(id), myLogicSetting(logicSetting) {}
+    LogicOutputPin(uint8_t id, LogicIoPinSetting logicSetting = LogicIoPinSetting::ACTIVE_HIGH) noexcept : BinaryOutputPin(id), myLogicSetting(logicSetting) {}
 
     /**
      * Accessor of `logicSetting` property.
