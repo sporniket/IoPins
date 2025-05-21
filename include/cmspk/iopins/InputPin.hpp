@@ -12,7 +12,6 @@ A C++ abstraction layer for input pins of micro-controllers.
 #include <cstdint>
 #include <expected>
 
-#include "cmspk/iopins/IoDirection.hpp"
 #include "cmspk/iopins/IoFailureReason.hpp"
 namespace cmspk::iopins {
 // ================[ CODE BEGINS ]================
