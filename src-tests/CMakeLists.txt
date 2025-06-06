@@ -13,7 +13,14 @@ set(BINARY ${CMAKE_PROJECT_NAME}--test)
 set(SOURCES TestRunner.cpp)
 
 add_executable(${BINARY} ${SOURCES})
-target_include_directories(${BINARY} PUBLIC ../include)
+target_include_directories(
+    ${BINARY} PUBLIC
+    # platform independant code
+    ## lib-ext -- in order of dependency
+    ../lib-ext/ucdevices/include
+    ## main code
+    ../include
+)
 
 # Uses criterion, see https://github.com/Snaipe/Criterion
 find_library(LIBCRITERION criterion REQUIRED)

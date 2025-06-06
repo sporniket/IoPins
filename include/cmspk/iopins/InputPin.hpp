@@ -9,9 +9,15 @@ A C++ abstraction layer for input pins of micro-controllers.
 * ** ** ** ** ** ** ** ** ** ** ** ** **/
 #ifndef CMSPK__IOPINS__INPUT_PIN__HPP
 #define CMSPK__IOPINS__INPUT_PIN__HPP
+
+// standard includes
 #include <cstdint>
 #include <expected>
 
+// dependencies includes
+#include "cmspk/ucdev.hpp"
+
+// project includes
 #include "cmspk/iopins/IoFailureReason.hpp"
 namespace cmspk::iopins {
 // ================[ CODE BEGINS ]================
@@ -26,7 +32,7 @@ namespace cmspk::iopins {
  * > **Licence** GPL 3.0 or later.
  */
 template <typename S>
-class InputPin {
+class InputPin : public cmspk::ucdev::InputValueDevice<S, IoFailureReason> {
   public:
     ~InputPin() noexcept {}
 
@@ -84,21 +90,7 @@ class InputPin {
      */
     uint8_t getPinId() const noexcept { return id; }
 
-    /**
-     * Read operation, the pin MUST have `READ` direction to be able to succeed.
-     *
-     * @returns the result of the read operation.
-     */
-    std::expected<S, IoFailureReason> read() noexcept { return doRead(); }
-
   private:
-    /**
-     * Extension point to implement for the actual read operation.
-     *
-     * @returns the result of the read operation.
-     */
-    virtual std::expected<S, IoFailureReason> doRead() noexcept = 0;
-
   private:
     uint8_t id;
 };

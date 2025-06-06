@@ -17,6 +17,7 @@ class ConcreteBinaryInputPin final : public BinaryInputPin {
   private:
     BoolValue* value;
 
+    virtual std::expected<void, IoFailureReason> checkReadability() noexcept { return std::expected<void, IoFailureReason>(); }
     virtual std::expected<bool, IoFailureReason> doRead() noexcept { return value->value; }
 };
 // ================[END typical specialization]==================
