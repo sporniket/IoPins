@@ -18,7 +18,7 @@
 #    * or `cmake --build . --clean-first -- verify` to trigger a full rebuild.
 # ---
 cmake_minimum_required(VERSION 3.28)
-project(animated_values)
+project(io_pins)
 set(CMAKE_CXX_STANDARD 23)
 add_compile_options(-Wall -Wextra -Wpedantic)
 
