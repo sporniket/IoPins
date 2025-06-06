@@ -91,7 +91,6 @@ class InputPin : public cmspk::ucdev::InputValueDevice<S, IoFailureReason> {
     uint8_t getPinId() const noexcept { return id; }
 
   private:
-  private:
     uint8_t id;
 };
 

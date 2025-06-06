@@ -17,6 +17,10 @@ class ConcreteLogicOutputPin final : public LogicOutputPin {
   private:
     BoolValue* value;
 
+    virtual std::expected<void, IoFailureReason> checkWritability() noexcept {
+        return std::expected<void, IoFailureReason>();
+    }
+
     virtual std::expected<void, IoFailureReason> doWrite(const bool value) noexcept {
         this->value->value = value;
         return std::expected<void, IoFailureReason>();

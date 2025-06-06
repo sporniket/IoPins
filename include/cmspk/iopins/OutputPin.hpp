@@ -9,10 +9,16 @@ A C++ abstraction layer for output pins of micro-controllers.
 * ** ** ** ** ** ** ** ** ** ** ** ** **/
 #ifndef CMSPK__IOPINS__OUTPUT_PIN__HPP
 #define CMSPK__IOPINS__OUTPUT_PIN__HPP
+// standard includes
 #include <cstdint>
 #include <expected>
 
+// dependencies includes
+#include "cmspk/ucdev.hpp"
+
+// project includes
 #include "cmspk/iopins/IoFailureReason.hpp"
+#include "cmspk/ucdev/OutputValueDevice.hpp"
 namespace cmspk::iopins {
 // ================[ CODE BEGINS ]================
 /**
@@ -28,7 +34,7 @@ namespace cmspk::iopins {
  * > **Licence** GPL 3.0 or later.
  */
 template <typename S>
-class OutputPin {
+class OutputPin : public cmspk::ucdev::OutputValueDevice<S, IoFailureReason> {
   public:
     ~OutputPin() noexcept {}
 
@@ -85,25 +91,6 @@ class OutputPin {
      * Get the pin id for the underlying microcontroller/board, usually a 1-based index value.
      */
     uint8_t getPinId() const noexcept { return id; }
-
-    /**
-     * Write operation, the pin MUST have `WRITE` direction to be able to succeed.
-     *
-     * @param value the value to write to the output pin.
-     *
-     * @returns the result of the write operation.
-     */
-    std::expected<void, IoFailureReason> write(const S value) noexcept { return doWrite(value); }
-
-  private:
-    /**
-     * Extension point to implement for the actual write operation.
-     *
-     * @param value the value to write to the output pin.
-     *
-     * @returns the result of the write operation.
-     */
-    virtual std::expected<void, IoFailureReason> doWrite(const S value) noexcept = 0;
 
   private:
     uint8_t id;
