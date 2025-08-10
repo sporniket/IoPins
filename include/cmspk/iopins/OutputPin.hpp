@@ -19,6 +19,7 @@ A C++ abstraction layer for output pins of micro-controllers.
 // project includes
 #include "cmspk/iopins/IoFailureReason.hpp"
 #include "cmspk/ucdev/OutputValueDevice.hpp"
+#include "cmspk/ucdev/ReadWriteAssertions.hpp"
 namespace cmspk::iopins {
 // ================[ CODE BEGINS ]================
 /**
@@ -34,7 +35,7 @@ namespace cmspk::iopins {
  * > **Licence** GPL 3.0 or later.
  */
 template <typename S>
-class OutputPin : public cmspk::ucdev::OutputValueDevice<S, IoFailureReason> {
+class OutputPin : public cmspk::ucdev::OutputValueDevice<S, IoFailureReason>, public cmspk::ucdev::SimpleWritableDeviceAssertions {
   public:
     ~OutputPin() noexcept {}
 
@@ -44,48 +45,6 @@ class OutputPin : public cmspk::ucdev::OutputValueDevice<S, IoFailureReason> {
      * @param id the native identification number of the pin.
      */
     OutputPin(uint8_t id) noexcept : id(id) {}
-
-    /**
-     * Predicate about the readability of the pin.
-     *
-     * @returns `false`, always.
-     */
-    bool isReadable() const noexcept { return false; }
-
-    /**
-     * Predicate about the readability of the pin.
-     *
-     * @returns `true`, always.
-     */
-    bool isNotReadable() const noexcept { return true; }
-
-    /**
-     * Predicate about the writability of the pin.
-     *
-     * @returns `true`, always.
-     */
-    bool isWritable() const noexcept { return true; }
-
-    /**
-     * Predicate about the writability of the pin.
-     *
-     * @returns `false`, always.
-     */
-    bool isNotWritable() const noexcept { return false; }
-
-    /**
-     * Predicate about the enabling of the pin.
-     *
-     * @returns `true`, always.
-     */
-    bool isEnabled() const noexcept { return true; }
-
-    /**
-     * Predicate about the enabling of the pin.
-     *
-     * @returns `false`, always.
-     */
-    bool isDisabled() const noexcept { return false; }
 
     /**
      * Get the pin id for the underlying microcontroller/board, usually a 1-based index value.

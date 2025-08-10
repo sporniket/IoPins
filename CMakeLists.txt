@@ -40,12 +40,14 @@ file(GLOB_RECURSE FORMATTABLE_SOURCES
 # Custom targets for pretty printing the sources (check and perform)
 add_custom_target(check-prettier
     COMMAND clang-format
+    --verbose
     --dry-run
     --style=file
     ${FORMATTABLE_SOURCES}
 )
 add_custom_target(prettier
     COMMAND clang-format
+    --verbose
     -i
     --style=file
     ${FORMATTABLE_SOURCES}

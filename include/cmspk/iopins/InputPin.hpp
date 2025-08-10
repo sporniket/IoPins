@@ -32,7 +32,7 @@ namespace cmspk::iopins {
  * > **Licence** GPL 3.0 or later.
  */
 template <typename S>
-class InputPin : public cmspk::ucdev::InputValueDevice<S, IoFailureReason> {
+class InputPin : public cmspk::ucdev::InputValueDevice<S, IoFailureReason>, public cmspk::ucdev::SimpleReadableDeviceAssertions {
   public:
     ~InputPin() noexcept {}
 
@@ -42,48 +42,6 @@ class InputPin : public cmspk::ucdev::InputValueDevice<S, IoFailureReason> {
      * @param id the native identification number of the pin.
      */
     InputPin(uint8_t id) noexcept : id(id) {}
-
-    /**
-     * Predicate about the readability of the pin.
-     *
-     * @returns `true`, always.
-     */
-    bool isReadable() const noexcept { return true; }
-
-    /**
-     * Predicate about the readability of the pin.
-     *
-     * @returns `false`, always.
-     */
-    bool isNotReadable() const noexcept { return false; }
-
-    /**
-     * Predicate about the writability of the pin.
-     *
-     * @returns `false`, always.
-     */
-    bool isWritable() const noexcept { return false; }
-
-    /**
-     * Predicate about the writability of the pin.
-     *
-     * @returns `true`, always.
-     */
-    bool isNotWritable() const noexcept { return true; }
-
-    /**
-     * Predicate about the enabling of the pin.
-     *
-     * @returns `true`, always.
-     */
-    bool isEnabled() const noexcept { return true; }
-
-    /**
-     * Predicate about the enabling of the pin.
-     *
-     * @returns `false`, always.
-     */
-    bool isDisabled() const noexcept { return false; }
 
     /**
      * Get the pin id for the underlying microcontroller/board, usually a 1-based index value.
