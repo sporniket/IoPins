@@ -25,7 +25,7 @@ A C++ abstraction layer for input pins of micro-controllers.
 namespace cmspk::iopins {
 // ================[ CODE BEGINS ]================
 /**
- * An abstraction of a group of digital (true/false) input pins of a given size, that is read all at once.
+ * An abstraction of a group of binary (true/false) input pins of a given size, that is read all at once.
  *
  * @param N the size of the group.
  *
