@@ -30,6 +30,7 @@ namespace cmspk {};
 namespace cmspk::iopins {};
 
 #include "cmspk/iopins/InputPin.hpp"
+#include "cmspk/iopins/InputPinGroup.hpp"
 #include "cmspk/iopins/IoDirection.hpp"
 #include "cmspk/iopins/IoFailureReason.hpp"
 #include "cmspk/iopins/LogicInputPin.hpp"

@@ -40,7 +40,7 @@ Invoke `cmake --build build -- refresh-compile-db` to perform the linting.
 
 ## Generate the documentation
 
-Invoke `cmake --build build -- refresh-compile-db` to perform the linting.
+Invoke `cmake --build build -- doc-generate` to generate the documentation into `local.doxygen.output`.
 
 ## Run the test suite
 

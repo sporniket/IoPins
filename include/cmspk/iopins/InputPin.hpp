@@ -44,7 +44,7 @@ class InputPin : public cmspk::ucdev::InputValueDevice<S, IoFailureReason>, publ
     InputPin(uint8_t id) noexcept : id(id) {}
 
     /**
-     * Get the pin id for the underlying microcontroller/board, usually a 1-based index value.
+     * Get the pin id for the underlying microcontroller/board.
      */
     uint8_t getPinId() const noexcept { return id; }
 

@@ -15,8 +15,6 @@ A C++ abstraction layer for I/O pins of micro-controllers..
 // e.g. #include "whatever.hpp"
 #include "cmspk/iopins.hpp"
 
-// FIXME write actual tests
-
 using cmspk::iopins::BinaryInputPin;
 using cmspk::iopins::BinaryOutputPin;
 using cmspk::iopins::IoDirection;
@@ -31,6 +29,7 @@ struct BoolValue {
 };
 
 #include "UT-InputPin.hpp"
+#include "UT-InputPinGroup.hpp"
 #include "UT-LogicInputPin.hpp"
 #include "UT-LogicOutputPin.hpp"
 #include "UT-OutputPin.hpp"

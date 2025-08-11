@@ -47,7 +47,7 @@ class OutputPin : public cmspk::ucdev::OutputValueDevice<S, IoFailureReason>, pu
     OutputPin(uint8_t id) noexcept : id(id) {}
 
     /**
-     * Get the pin id for the underlying microcontroller/board, usually a 1-based index value.
+     * Get the pin id for the underlying microcontroller/board.
      */
     uint8_t getPinId() const noexcept { return id; }
 
