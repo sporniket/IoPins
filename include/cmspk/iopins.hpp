@@ -37,5 +37,6 @@ namespace cmspk::iopins {};
 #include "cmspk/iopins/LogicIoPinSetting.hpp"
 #include "cmspk/iopins/LogicOutputPin.hpp"
 #include "cmspk/iopins/OutputPin.hpp"
+#include "cmspk/iopins/OutputPinGroup.hpp"
 // ================[ END OF CODE ]================
 #endif

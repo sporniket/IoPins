@@ -33,3 +33,4 @@ struct BoolValue {
 #include "UT-LogicInputPin.hpp"
 #include "UT-LogicOutputPin.hpp"
 #include "UT-OutputPin.hpp"
+#include "UT-OutputPinGroup.hpp"
